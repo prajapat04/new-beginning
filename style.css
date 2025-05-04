@@ -41,12 +41,18 @@ body {
   img {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    width: 90%;
+    max-width: 100%;
+    display: block;
   }
   footer {
     background-color: black;
     color: #2c3e50;
     text-align: center;
+  }
+  .highlight {
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 
   @media (max-width: 600px) {
