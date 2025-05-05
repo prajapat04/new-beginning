@@ -66,12 +66,11 @@ console.log("JavaScript is working!");
 
  const fruits = ["apple", "banana", "cherry", "mango"];
  const fruitList = document.getElementById("fruitList");
- fruits.forEach(function(fruit, index){
-  console.log(`${index + 1}.${fruit}`);
+ fruits.forEach((fruit, i) => {
   const li = document.createElement("li");
-  li.innerText = fruit;
-  fruitList.appendChild(li);
- });
+  li.innerText = `${i + 1}.${fruit}`;
+ fruitList.appendChild(li);
+});
  
 
  const user = {
@@ -95,3 +94,43 @@ for(const user of users){
   li.innerText = `${user.name} : ${user.age}`;
   document.getElementById("obj-list").appendChild(li);
 }
+
+const products = [
+  {name : "Lg", price: 45000},
+  {name : "Lenovo", price: 50000},
+  {name : "Dell", price: 55000},
+  {name : "Asus vivobook", price: 65000}
+];
+const productList = document.getElementById("product-list");
+
+products.forEach(product => {
+  const li = document.createElement("li");
+  li.innerText = `Name ${product.name} - Price ${product.price}`;
+
+  if(product.price > 20000){
+    li.style.color = "green";
+  } else {
+    li.style.color = "red";
+  }
+  productList.appendChild(li);
+});
+function filterExpensive() {
+  productList.innerHTML = "";
+  const expencive = products.filter(p => p.price > 50000);
+  if(expencive.length === 0){
+    const li = document.createElement("li");
+    li.innerText = "No product over 50000 found.";
+    li.style.color = "gray";
+    productList.appendChild(li);
+    return;
+  } 
+
+  expencive.forEach(product => {
+  const li = document.createElement("li");
+  li.innerText = `${product.name} price : ${product.price}`;
+  li.style.color = "blue";
+  productList.appendChild(li);
+});
+
+}
+
