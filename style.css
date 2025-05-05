@@ -1,9 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
 body {
     background-color: #f0f0f0;
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9f0;
+    text-decoration: none;
   }
   
   h1 {
@@ -27,7 +34,7 @@ body {
   .container {
     max-width: 100%;
     width: 600px;
-    margin: auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
@@ -43,6 +50,7 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     max-width: 100%;
     display: block;
+    height: 400px;
   }
   footer {
     background-color: black;
@@ -54,7 +62,38 @@ body {
     font-weight: bold;
     text-transform: uppercase;
   }
-
+  input, #num1 , #num2 {
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    border: 2px solid blue;
+    border-radius: 8px;
+  }
+  #num1:focus, #num2:focus {
+    background-color: black;
+    color: white;
+    border: 2px solid yellow;
+  }
+  #operation, #conversion-type {
+    width: 20%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+  }
+  button {
+    max-width: 30%;
+    padding: 10px;
+    background-color: blueviolet;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: 0.3s ease;
+    margin: 10px auto;
+  }
+  button:hover {
+    background-color: #2c3e50;
+    cursor: pointer;
+  }
   @media (max-width: 600px) {
     h1 {
       font-size: 24px;
