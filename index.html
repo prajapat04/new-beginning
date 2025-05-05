@@ -83,6 +83,20 @@
         </select>
         <button onclick="calculate()" >Calculate</button>
         <p id="calc-result"></p>
+        <button onclick="clearCalc()">Clear</button>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2>User Registration</h2>
+        <form onsubmit="handleSubmit(event)" id="registration-form">
+            <input type="text" id="name" placeholder="Full Name" required />
+            <input type="email" id="email1" placeholder="Enter your Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <input type="password" id="con-password" placeholder="Confirm Password" required />
+            <button type="submit">Register</button>
+        </form>
+        <p id="form-message"></p>
     </div>
 </section>
 <footer><p>made by code crew</p></footer>

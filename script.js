@@ -203,3 +203,59 @@ function calculate() {
   resultElement.style.color = "green";
 
 }
+document.addEventListener("keydown", function(event){
+  if(event.key === "Enter"){
+    calculate();
+  }
+  
+})
+
+function clearCalc() {
+  document.getElementById("num1").value = "";
+  document.getElementById("num2").value = "";
+  document.getElementById("calc-result").innerText = "let input new number to perform new opration.";
+}
+
+function handleSubmit(event){
+  event.preventDefault();
+
+   const name = document.getElementById("name").value.trim();
+   const email = document.getElementById("email1").value.trim();
+   const password = document.getElementById("password").value.trim();
+   const conPassword = document.getElementById("con-password").value.trim();
+   const message = document.getElementById("form-message");
+ 
+    if(name.length < 3){
+      message.innerText = "Name Must Be at least 3 Characters.";
+      message.style.color = "red";
+      return;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+      message.innerText = "Enter a valid email address.";
+      message.style.color = "red";
+      return;
+    }
+
+
+    if(password.length < 6) {
+      message.innerText = "Password Must be at least 6 characters.";
+      message.style.color = "red";
+      return;
+    } 
+    if (!nonWhitespacePattern.test(name) || !nonWhitespacePattern.test(password)) {
+      response.innerText = "Name and password cannot be empty or whitespace.";
+      response.style.color = "red";
+      return;
+    }
+    if(password !== conPassword){
+      message.innerText = "your password are note same recheak";
+      alert("please enter same as password on confirm password");
+      return;
+    }
+
+    message.innerText = `welcome, ${name}! regisration successful.`;
+    message.style.color = "red";
+
+    document.getElementById("regitration-form").reset();
+}
