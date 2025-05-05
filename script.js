@@ -134,3 +134,34 @@ function filterExpensive() {
 
 }
 
+
+function convertToCelsius(fahrenheit) {
+  return ((fahrenheit - 32) * 5 / 9).toFixed(2);
+}
+
+function convertToFahrenheit(celsius) {
+  return ((celsius * 9 / 5) + 32).toFixed(2);
+}
+
+function convertTemp() {
+  const temp = parseFloat(document.getElementById("temp-input").value);
+  const type = document.getElementById("conversion-type").value;
+  const output = document.getElementById("converted-output");
+
+  if (isNaN(temp)) {
+    output.innerText = "Please enter a valid number.";
+    output.style.color = "red";
+    return;
+  }
+
+  let result;
+  if (type === "toCelsius") {
+    result = convertToCelsius(temp);
+    output.innerText = `${temp}°F is ${result}°C`;
+  } else {
+    result = convertToFahrenheit(temp);
+    output.innerText = `${temp}°C is ${result}°F`;
+  }
+
+  output.style.color = "green";
+}
