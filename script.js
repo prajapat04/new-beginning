@@ -259,3 +259,42 @@ function handleSubmit(event){
 
     document.getElementById("regitration-form").reset();
 }
+
+const tasks = [];
+function addTask() {
+  const input = document.getElementById("task-input");
+  const task = input.value.trim();
+
+  if(task === "") return;
+
+  tasks.push(task);
+  input.value = "";
+  displayTasks();
+}
+
+function displayTasks() {
+  const list = document.getElementById("task-list");
+  list.innerText = "";
+  
+  tasks.forEach((task, index)=> {
+    const li = document.createElement("li");
+    li.innerText = task;
+
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete";
+    deleteBtn.onclick = () => deleteTask(index);
+    li.appendChild(deleteBtn);
+    list.appendChild(li);
+  });
+
+  let string = JSON.stringify(tasks);
+  localStorage.setItem("tasks", string);
+
+  
+}
+
+function deleteTask(index){
+  tasks.splice(index, 1);
+  displayTasks();
+}
