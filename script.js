@@ -260,7 +260,15 @@ function handleSubmit(event){
     document.getElementById("regitration-form").reset();
 }
 
-const tasks = [];
+let tasks = [];
+
+window.onload = function() {
+   const saved = localStorage.getItem("tasks");
+   if(saved){
+    tasks = JSON.parse(saved);
+    displayTasks();
+   }
+};
 function addTask() {
   const input = document.getElementById("task-input");
   const task = input.value.trim();
@@ -269,7 +277,17 @@ function addTask() {
 
   tasks.push(task);
   input.value = "";
+  saveTasks();
   displayTasks();
+}
+
+function deleteTask(index){
+  tasks.splice(index, 1);
+  displayTasks();
+}
+
+function saveTasks(){
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function displayTasks() {
@@ -288,13 +306,13 @@ function displayTasks() {
     list.appendChild(li);
   });
 
-  let string = JSON.stringify(tasks);
-  localStorage.setItem("tasks", string);
 
-  
+
 }
 
-function deleteTask(index){
-  tasks.splice(index, 1);
+
+function clearTasks() {
+  tasks = [];
+  saveTasks();
   displayTasks();
 }
