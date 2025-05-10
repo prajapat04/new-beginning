@@ -275,6 +275,11 @@ function addTask() {
 
   if(task === "") return;
 
+  if(tasks.includes(task)){
+    alert("Task already exisis!");
+    return;
+  }
+
   tasks.push(task);
   input.value = "";
   saveTasks();
@@ -307,6 +312,7 @@ function displayTasks() {
   });
 
 
+  
 
 }
 
@@ -316,3 +322,60 @@ function clearTasks() {
   saveTasks();
   displayTasks();
 }
+
+let contacts = [];
+
+window.onload = function () {
+  const saved = localStorage.getItem("contacts");
+  if(saved){
+    contacts = JSON.parse(saved);
+    displayContacts();
+  }
+};
+
+function addContact() {
+  const name = document.getElementById("contact-name").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const phone = document.getElementById("contact-phone").value.trim();
+
+  if(!name || !email || !phone) return;
+
+  const phonePattern = /^[6-9]\d{9}$/;
+if (!phonePattern.test(phone)) {
+  alert("Enter a valid 10-digit phone number starting with 6-9");
+  return;
+}
+
+
+  const contact = {name, email, phone };
+  contacts.push(contact);
+  saveContacts();
+  displayContacts();
+ 
+ }
+
+ function deleteContact(index){
+  contacts.splice(index, 1);
+  saveContacts();
+  displayContacts();
+ }
+
+ function saveContacts() {
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+ }
+
+ function displayContacts(){
+  const list = document.getElementById("contact-list");
+  list.innerHTML = "";
+
+  contacts.forEach((contact, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${contact.name}</strong> (${contact.email}, ${contact.phone} )`;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "delete";
+    deleteBtn.onclick = () => deleteContact(index);
+    li.appendChild(deleteBtn);
+    list.appendChild(li);
+  });
+ }
