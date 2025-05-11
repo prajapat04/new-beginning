@@ -114,10 +114,12 @@
 <section>
     <div class="container">
         <h2>Contact Book</h2>
+        <div class="form">
         <input type="text" id="contact-name" placeholder="Name" />
         <input type="email" id="contact-email" placeholder="Email" />
         <input type="tel" id="contact-phone" placeholder="Phone Number" />
-        <button onclick="addContact()">Add Contact</button>
+        <button id="submit-btn" onclick="addContact()">Add Contact</button>
+    </div>
         <input type="text" id="search-input" placeholder="Search contacts..." onkeyup="searchContacts()" />
 
         <ul id="contact-list"></ul>

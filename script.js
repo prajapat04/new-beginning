@@ -63,37 +63,37 @@ console.log("JavaScript is working!");
   document.getElementById("form-response").innerText = `Typing : ${e.target.value}`;
  });
 
-
- const fruits = ["apple", "banana", "cherry", "mango"];
- const fruitList = document.getElementById("fruitList");
- fruits.forEach((fruit, i) => {
-  const li = document.createElement("li");
-  li.innerText = `${i + 1}.${fruit}`;
- fruitList.appendChild(li);
-});
+//array fruits
+//  const fruits = ["apple", "banana", "cherry", "mango"];
+//  const fruitList = document.getElementById("fruitList");
+//  fruits.forEach((fruit, i) => {
+//   const li = document.createElement("li");
+//   li.innerText = `${i + 1}.${fruit}`;
+//  fruitList.appendChild(li);
+// });
  
+// kay and value
+//  const user = {
+//   name : "jone",
+//   age : 34,
+//   email : "john@gamil.com"
+//  };
+//   const userInfo = document.getElementById("user-info");
+//  console.log(`Name ${user.name},  Email : ${user.email}`);
+// userInfo.innerText = `Name ${user.name},  Email : ${user.email}`;
 
- const user = {
-  name : "jone",
-  age : 34,
-  email : "john@gamil.com"
- };
-  const userInfo = document.getElementById("user-info");
- console.log(`Name ${user.name},  Email : ${user.email}`);
-userInfo.innerText = `Name ${user.name},  Email : ${user.email}`;
 
+// const users = [
+//   {name : "Aman", age : 23},
+//   {name : "Neha", age : 24},
+//   {name : "Ravi", age : 26}
+// ];
 
-const users = [
-  {name : "Aman", age : 23},
-  {name : "Neha", age : 24},
-  {name : "Ravi", age : 26}
-];
-
-for(const user of users){
-  let li = document.createElement("li");
-  li.innerText = `${user.name} : ${user.age}`;
-  document.getElementById("obj-list").appendChild(li);
-}
+// for(const user of users){
+//   let li = document.createElement("li");
+//   li.innerText = `${user.name} : ${user.age}`;
+//   document.getElementById("obj-list").appendChild(li);
+// }
 
 const products = [
   {name : "Lg", price: 45000},
@@ -345,6 +345,24 @@ if (!phonePattern.test(phone)) {
   alert("Enter a valid 10-digit phone number starting with 6-9");
   return;
 }
+if (contacts.some(c => c.email === email )) {
+  alert("This email is already added.");
+  return;
+}
+if(contacts.some(c => c.phone === phone)){
+  alert("This number is allready added");
+  return;
+}
+if(name.length < 3){
+  alert("Name must be 3 latter");
+  return;
+}
+if (!email.includes("@") || !email.includes(".")) {
+  alert( "Enter a valid email address.");
+  
+  return;
+}
+
 
 
   const contact = {name, email, phone };
@@ -359,9 +377,7 @@ if (!phonePattern.test(phone)) {
   saveContacts();
   displayContacts();
 
-  document.getElementById("contact-name").value = "";
-  document.getElementById("contact-email").value = "";
-  document.getElementById("contact-phone").value = "";
+  resetForm();
  }
 
  function saveContacts() {
@@ -372,13 +388,16 @@ if (!phonePattern.test(phone)) {
   const list = document.getElementById("contact-list");
   list.innerHTML = "";
 
+  if (contacts.length === 0) {
+    list.innerHTML = "<p>No contacts found.</p>";
+  }
   contacts.forEach((contact, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `<strong>${contact.name}</strong> (${contact.email}, ${contact.phone} )`;
+    li.innerHTML = `<span>${contact.name}</span><span>${contact.email}</span><span>${contact.phone}</span> `;
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "delete";
-    deleteBtn.onclick = () => deleteContact(index);
+    deleteBtn.onclick = () => confirmDelete(index);
     li.appendChild(deleteBtn);
     list.appendChild(li);
   });
@@ -394,12 +413,12 @@ if (!phonePattern.test(phone)) {
     if (contactStr.includes(query)) {
       const li = document.createElement("li");
       li.innerHTML = `
-        <strong>${contact.name}</strong> (${contact.email}, ${contact.phone})
-        <button onclick="editContact(${index})">✏️</button>
-        <button onclick="deleteContact(${index})">❌</button>
+        <strong>Name : </strong>${contact.name} ${contact.email}, ${contact.phone}
+        <button onclick="confirmEdit(${index})">✏️</button>
+        <button onclick="confirmDelete(${index})">❌</button>
       `;
       list.appendChild(li);
-    }
+    };
   });
 }
 
@@ -425,30 +444,42 @@ function updateContact(index) {
   if (!name || !email || !phone) return;
 
   contacts[index] = { name, email, phone };
+
+  alert(`Contact Updated sucessfull`);
   saveContacts();
   displayContacts();
 
   // Reset form
+ resetForm();
+
+  const btn = document.getElementById("submit-btn");
+  btn.innerText = "Add Contact";
+  btn.onclick = addContact;
+
+}
+
+function resetForm() {
   document.getElementById("contact-name").value = "";
   document.getElementById("contact-email").value = "";
   document.getElementById("contact-phone").value = "";
-
-  const addBtn = document.querySelector("button[onclick='updateContact(" + index + ")']");
-  addBtn.innerText = "Add Contact";
-  addBtn.setAttribute("onclick", "addContact()");
 }
 
-// function confirmDelete(index) {
-//   const result = confirm(`Are you sure you want to delete "${contacts[index].name}"?`);
-//   if (result) {
-//     deleteContact(index);
-//   }
-// }
 
-// function confirmEdit(index) {
-//   const result = confirm(`Do you want to edit contact: "${contacts[index].name}"?`);
-//   if (result) {
-//     editContact(index);
-//   }
-// }
+function confirmDelete(index) {
+  const result = confirm(`Are you sure you want to delete "${contacts[index].name}"?`);
+  if (result) {
+    deleteContact(index);
+  }
+}
+
+function confirmEdit(index) {
+  const result = confirm(`Do you want to edit contact: "${contacts[index].name}"?`);
+  if (result) {
+    editContact(index);
+  }
+}
+
+
+
+
 

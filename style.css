@@ -108,7 +108,7 @@ body {
     display: flex;
     flex-direction: column;
   }
-  #task-list li {
+  li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,6 +116,13 @@ body {
     border: 2px solid black;
     border-radius: 8px;
     margin: 10px 0;
+  }
+
+  .form, form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
  
   button:hover {
