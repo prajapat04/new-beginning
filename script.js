@@ -358,6 +358,10 @@ if (!phonePattern.test(phone)) {
   contacts.splice(index, 1);
   saveContacts();
   displayContacts();
+
+  document.getElementById("contact-name").value = "";
+  document.getElementById("contact-email").value = "";
+  document.getElementById("contact-phone").value = "";
  }
 
  function saveContacts() {
@@ -379,3 +383,72 @@ if (!phonePattern.test(phone)) {
     list.appendChild(li);
   });
  }
+
+ function searchContacts() {
+  const query = document.getElementById("search-input").value.toLowerCase();
+  const list = document.getElementById("contact-list");
+  list.innerHTML = "";
+
+  contacts.forEach((contact, index) => {
+    const contactStr = `${contact.name} ${contact.email} ${contact.phone}`.toLowerCase();
+    if (contactStr.includes(query)) {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <strong>${contact.name}</strong> (${contact.email}, ${contact.phone})
+        <button onclick="editContact(${index})">✏️</button>
+        <button onclick="deleteContact(${index})">❌</button>
+      `;
+      list.appendChild(li);
+    }
+  });
+}
+
+function editContact(index) {
+  const contact = contacts[index];
+  document.getElementById("contact-name").value = contact.name;
+  document.getElementById("contact-email").value = contact.email;
+  document.getElementById("contact-phone").value = contact.phone;
+
+  // Temporarily change add button
+  const addBtn = document.querySelector("button[onclick='addContact()']");
+  addBtn.innerText = "Update Contact";
+  addBtn.onclick = function () {
+    updateContact(index);
+  };
+}
+
+function updateContact(index) {
+  const name = document.getElementById("contact-name").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const phone = document.getElementById("contact-phone").value.trim();
+
+  if (!name || !email || !phone) return;
+
+  contacts[index] = { name, email, phone };
+  saveContacts();
+  displayContacts();
+
+  // Reset form
+  document.getElementById("contact-name").value = "";
+  document.getElementById("contact-email").value = "";
+  document.getElementById("contact-phone").value = "";
+
+  const addBtn = document.querySelector("button[onclick='updateContact(" + index + ")']");
+  addBtn.innerText = "Add Contact";
+  addBtn.setAttribute("onclick", "addContact()");
+}
+
+// function confirmDelete(index) {
+//   const result = confirm(`Are you sure you want to delete "${contacts[index].name}"?`);
+//   if (result) {
+//     deleteContact(index);
+//   }
+// }
+
+// function confirmEdit(index) {
+//   const result = confirm(`Do you want to edit contact: "${contacts[index].name}"?`);
+//   if (result) {
+//     editContact(index);
+//   }
+// }
+
