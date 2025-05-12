@@ -31,7 +31,7 @@ console.log("sum of all numbers:", sum(1, 2, 3, 4, 5));
 
 //6. Default Parameters 
 function sayHi(name = "Guest"){
-   console.log(`Hi, ${name}`);
+   return `Hi, ${name}`;
 }
 console.log(sayHi());
 console.log(sayHi("Bob"));
@@ -40,6 +40,11 @@ console.log(sayHi("Bob"));
 const colors = ["red", "green", "blue"];
 for(let color of colors){
     console.log("Color:", color);
+}
+
+const person = { frist : "code", last: "crew" };
+for( let key in person){
+    console.log(`${key}: ${person[key]}`);
 }
 //8. Map filter, reduce
 const numbers = [1, 2, 3, 4, 5];
