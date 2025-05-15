@@ -1,485 +1,152 @@
-console.log("JavaScript is working!");
-// function greetUser() {
-//     alert("Welcome to my site!");
-//   }
-//funcation on window load
-//   window.onload = greetUser;
+const toggle = document.getElementById("toggle-mode");
+const body = document.body;
 
-//change hadding in html tag
-  function changeHeading() {
-    document.getElementById("main-heading").innerText = "You clicked the button!";
-  }
-  
-  function showName(){
-    const name = document.getElementById("name-input").value;
-    document.getElementById("greeting").innerHTML = `hello ${name}`;
-  }
+if(localStorage.getItem("dark-mode") === "enabled"){
+    body.classList.add("dark-mode");
+    toggle.textContent = "☀️";
+}
 
-  window.onload = function() {
-    
+toggle.addEventListener("click", ()  => {
+    body.classList.toggle("dark-mode");
 
-    const newPara = document.createElement("p");
-    newPara.innerHTML = "This pragraph was added user js";
-    newPara.style.color = "green";
-    document.body.appendChild(newPara);
-  };
-
-  function toggleStyle() {
-    const heading = document.getElementById("toggle-heading");
-    heading.classList.toggle("highlight");
-  }
-
-  function removePra() {
-    const prag = document.getElementById("remove-me");
-    prag.remove();
-    
-  }
- document.getElementById("contact-form").addEventListener("submit",  function(e){
-  e.preventDefault();
-
-  const name = document.getElementById("username").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const response = document.getElementById("form-response");
-  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
- if (!emailPattern.test(email)) {
-   response.innerText = "Please enter a valid email.";
-   response.style.color = "red";
-   return;
- } else {
-   document.getElementById("contact-form").reset();
- 
- };
-  
-  if(name === "" || email === ""){
-    response.innerText = "Please fill in all fields.";
-    response.style.color = "red";
-  } else {
-    response.innerText = `Thanks, ${name} we'll contact you at ${email}.`;
-    response.style.color = "green";
-  }
- });
-
- document.getElementById("username").addEventListener("keyup", function(e){
-  document.getElementById("form-response").innerText = `Typing : ${e.target.value}`;
- });
-
-//array fruits
-//  const fruits = ["apple", "banana", "cherry", "mango"];
-//  const fruitList = document.getElementById("fruitList");
-//  fruits.forEach((fruit, i) => {
-//   const li = document.createElement("li");
-//   li.innerText = `${i + 1}.${fruit}`;
-//  fruitList.appendChild(li);
-// });
- 
-// kay and value
-//  const user = {
-//   name : "jone",
-//   age : 34,
-//   email : "john@gamil.com"
-//  };
-//   const userInfo = document.getElementById("user-info");
-//  console.log(`Name ${user.name},  Email : ${user.email}`);
-// userInfo.innerText = `Name ${user.name},  Email : ${user.email}`;
-
-
-// const users = [
-//   {name : "Aman", age : 23},
-//   {name : "Neha", age : 24},
-//   {name : "Ravi", age : 26}
-// ];
-
-// for(const user of users){
-//   let li = document.createElement("li");
-//   li.innerText = `${user.name} : ${user.age}`;
-//   document.getElementById("obj-list").appendChild(li);
-// }
-
-const products = [
-  {name : "Lg", price: 45000},
-  {name : "Lenovo", price: 50000},
-  {name : "Dell", price: 55000},
-  {name : "Asus vivobook", price: 65000}
-];
-const productList = document.getElementById("product-list");
-
-products.forEach(product => {
-  const li = document.createElement("li");
-  li.innerText = `Name ${product.name} - Price ${product.price}`;
-
-  if(product.price > 20000){
-    li.style.color = "green";
-  } else {
-    li.style.color = "red";
-  }
-  productList.appendChild(li);
+    if(body.classList.contains("dark-mode")){
+        localStorage.setItem("dark-mode", "enabled");
+        toggle.textContent = "☀️";
+    }  else {
+        localStorage.setItem("dark-mode", "disabled");
+        toggle.textContent = "🌙";
+    }
 });
-function filterExpensive() {
-  productList.innerHTML = "";
-  const expencive = products.filter(p => p.price > 50000);
-  if(expencive.length === 0){
-    const li = document.createElement("li");
-    li.innerText = "No product over 50000 found.";
-    li.style.color = "gray";
-    productList.appendChild(li);
-    return;
-  } 
-
-  expencive.forEach(product => {
-  const li = document.createElement("li");
-  li.innerText = `${product.name} price : ${product.price}`;
-  li.style.color = "blue";
-  productList.appendChild(li);
-});
-
-}
-
-
-function convertToCelsius(fahrenheit) {
-  return ((fahrenheit - 32) * 5 / 9).toFixed(2);
-}
-
-function convertToFahrenheit(celsius) {
-  return ((celsius * 9 / 5) + 32).toFixed(2);
-}
-
-function convertTemp() {
-  const temp = parseFloat(document.getElementById("temp-input").value);
-  const type = document.getElementById("conversion-type").value;
-  const output = document.getElementById("converted-output");
-
-  if (isNaN(temp)) {
-    output.innerText = "Please enter a valid number.";
-    output.style.color = "red";
-    return;
-  }
-
-  let result;
-  if (type === "toCelsius") {
-    result = convertToCelsius(temp);
-    output.innerText = `${temp}°F is ${result}°C`;
-  } else {
-    result = convertToFahrenheit(temp);
-    output.innerText = `${temp}°C is ${result}°F`;
-  }
-
-  output.style.color = "green";
-}
-
-
-function calculate() {
-  const num1 = parseFloat(document.getElementById("num1").value);
-  const num2 = parseFloat(document.getElementById("num2").value);
-  const opration = document.getElementById("operation").value;
-  const resultElement = document.getElementById("calc-result");
-
-  if(isNaN(num1) || isNaN(num2)){
-    resultElement.innerText = "Please enter valid numbers.";
-    resultElement.style.color = "red";
-    return;
-  }
-  
-  let result;
-  switch(opration){
-    case "add":
-      result = num1 + num2;
-      break;
-    case "subtract":
-      result = num1 - num2;
-      break;
-    case "multiply":
-      result = num1 * num2;
-      break;
-    case "divide":
-      if(num2 === 0){
-        resultElement.innerText = "Cannot divide by zero.";
-        resultElement.style.color = "red";
-        return;
-      }
-      result = num1 /num2;
-      break;
-  }
-  resultElement.innerText = `Result : ${result}`;
-  resultElement.style.color = "green";
-
-}
-document.addEventListener("keydown", function(event){
-  if(event.key === "Enter"){
-    calculate();
-  }
-  
-})
-
-function clearCalc() {
-  document.getElementById("num1").value = "";
-  document.getElementById("num2").value = "";
-  document.getElementById("calc-result").innerText = "let input new number to perform new opration.";
-}
-
-function handleSubmit(event){
-  event.preventDefault();
-
-   const name = document.getElementById("name").value.trim();
-   const email = document.getElementById("email1").value.trim();
-   const password = document.getElementById("password").value.trim();
-   const conPassword = document.getElementById("con-password").value.trim();
-   const message = document.getElementById("form-message");
- 
-    if(name.length < 3){
-      message.innerText = "Name Must Be at least 3 Characters.";
-      message.style.color = "red";
-      return;
-    }
-
-    if (!email.includes("@") || !email.includes(".")) {
-      message.innerText = "Enter a valid email address.";
-      message.style.color = "red";
-      return;
-    }
-
-
-    if(password.length < 6) {
-      message.innerText = "Password Must be at least 6 characters.";
-      message.style.color = "red";
-      return;
-    } 
-    if (!nonWhitespacePattern.test(name) || !nonWhitespacePattern.test(password)) {
-      response.innerText = "Name and password cannot be empty or whitespace.";
-      response.style.color = "red";
-      return;
-    }
-    if(password !== conPassword){
-      message.innerText = "your password are note same recheak";
-      alert("please enter same as password on confirm password");
-      return;
-    }
-
-    message.innerText = `welcome, ${name}! regisration successful.`;
-    message.style.color = "red";
-
-    document.getElementById("regitration-form").reset();
-}
 
 let tasks = [];
 
-window.onload = function() {
-   const saved = localStorage.getItem("tasks");
-   if(saved){
+window.onload = function () {
+  const saved = localStorage.getItem("tasks");
+  if (saved) {
     tasks = JSON.parse(saved);
     displayTasks();
-   }
+  }
 };
-function addTask() {
-  const input = document.getElementById("task-input");
-  const task = input.value.trim();
+function addTask(){
+    const input = document.getElementById("input-task");
+    const task = input.value.trim();
+    
+    if(task === ""){ 
+     alert("task cannot be empty!");
+        return;
+    }
 
-  if(task === "") return;
-
-  if(tasks.includes(task)){
-    alert("Task already exisis!");
+    if(tasks.includes(task)){
+    alert("Already added this task.");
     return;
-  }
+   }
 
-  tasks.push(task);
-  input.value = "";
-  saveTasks();
-  displayTasks();
-}
-
-function deleteTask(index){
-  tasks.splice(index, 1);
-  displayTasks();
-}
-
-function saveTasks(){
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function displayTasks() {
-  const list = document.getElementById("task-list");
-  list.innerText = "";
-  
-  tasks.forEach((task, index)=> {
-    const li = document.createElement("li");
-    li.innerText = task;
-
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "Delete";
-    deleteBtn.onclick = () => deleteTask(index);
-    li.appendChild(deleteBtn);
-    list.appendChild(li);
-  });
-
-
-  
-
+   tasks.push({task, completed : false});
+   input.value = "";
+   saveTasks();
+   displayTasks();
 }
 
 
-function clearTasks() {
-  tasks = [];
-  saveTasks();
-  displayTasks();
-}
+   function deleteTask(index){
+       tasks.splice(index, 1);
+       saveTasks();
+       displayTasks();
+    }
+    
+    function saveTasks(){
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+    
+    function displayTasks() {
+       const list = document.getElementById("task-list");
+       list.innerText = "";
 
-let contacts = [];
+       tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerText = task;
+        
+        if(task.completed) {
+           li.style.textDecoration = "line-through";
+           li.style.color = "gray";
+        }
+        li.onclick = () => {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            displayTasks();
+        };
 
-window.onload = function () {
-  const saved = localStorage.getItem("contacts");
-  if(saved){
-    contacts = JSON.parse(saved);
-    displayContacts();
-  }
-};
+        const completeTask = document.createElement("button");
+        completeTask.innerText = "✔️";
+        completeTask.onclick = (e) => {
+            e.stopPropagation();
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            displayTasks();
+        };
+        
+        const editTask = document.createElement("button");
+        editTask.innerText = "Edit";
+        editTask.onclick = (e) => {
+            e.stopPropagation();
+            editTask(index);
+        }
+        
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "🗑️";
+        deleteBtn.onclick = () => confirmDelete(index);
+        li.appendChild(completeTask);
+        li.appendChild(editTask);
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+        
+    });
 
-function addContact() {
-  const name = document.getElementById("contact-name").value.trim();
-  const email = document.getElementById("contact-email").value.trim();
-  const phone = document.getElementById("contact-phone").value.trim();
+   }
 
-  if(!name || !email || !phone) return;
+   function confirmDelete(index) {
+     const result = confirm("Are you want to delete this list ?");
+     if(result){
+        deleteTask(index);
+     }
+   };
 
-  const phonePattern = /^[6-9]\d{9}$/;
-if (!phonePattern.test(phone)) {
-  alert("Enter a valid 10-digit phone number starting with 6-9");
-  return;
-}
-if (contacts.some(c => c.email === email )) {
-  alert("This email is already added.");
-  return;
-}
-if(contacts.some(c => c.phone === phone)){
-  alert("This number is allready added");
-  return;
-}
-if(name.length < 3){
-  alert("Name must be 3 latter");
-  return;
-}
-if (!email.includes("@") || !email.includes(".")) {
-  alert( "Enter a valid email address.");
-  
-  return;
-}
+   let editingIndex = null;
 
+    function editTask(index) {
+        const task = tasks[index];
+         document.getElementById("input-task").value = tasks[index].text;
+         editingIndex = index;
 
-
-  const contact = {name, email, phone };
-  contacts.push(contact);
-  saveContacts();
-  displayContacts();
- 
- }
-
- function deleteContact(index){
-  contacts.splice(index, 1);
-  saveContacts();
-  displayContacts();
-
-  resetForm();
- }
-
- function saveContacts() {
-  localStorage.setItem("contacts", JSON.stringify(contacts));
- }
-
- function displayContacts(){
-  const list = document.getElementById("contact-list");
-  list.innerHTML = "";
-
-  if (contacts.length === 0) {
-    list.innerHTML = "<p>No contacts found.</p>";
-  }
-  contacts.forEach((contact, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<span>${contact.name}</span><span>${contact.email}</span><span>${contact.phone}</span> `;
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML = "delete";
-    deleteBtn.onclick = () => confirmDelete(index);
-    li.appendChild(deleteBtn);
-    list.appendChild(li);
-  });
- }
-
- function searchContacts() {
-  const query = document.getElementById("search-input").value.toLowerCase();
-  const list = document.getElementById("contact-list");
-  list.innerHTML = "";
-
-  contacts.forEach((contact, index) => {
-    const contactStr = `${contact.name} ${contact.email} ${contact.phone}`.toLowerCase();
-    if (contactStr.includes(query)) {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <strong>Name : </strong>${contact.name} ${contact.email}, ${contact.phone}
-        <button onclick="confirmEdit(${index})">✏️</button>
-        <button onclick="confirmDelete(${index})">❌</button>
-      `;
-      list.appendChild(li);
+         const addBtn = document.getElementById("add-task");
+         addBtn.innerText = "Update";
+         addBtn.onclick = updateTask;
     };
-  });
-}
 
-function editContact(index) {
-  const contact = contacts[index];
-  document.getElementById("contact-name").value = contact.name;
-  document.getElementById("contact-email").value = contact.email;
-  document.getElementById("contact-phone").value = contact.phone;
-
-  // Temporarily change add button
-  const addBtn = document.querySelector("button[onclick='addContact()']");
-  addBtn.innerText = "Update Contact";
-  addBtn.onclick = function () {
-    updateContact(index);
-  };
-}
-
-function updateContact(index) {
-  const name = document.getElementById("contact-name").value.trim();
-  const email = document.getElementById("contact-email").value.trim();
-  const phone = document.getElementById("contact-phone").value.trim();
-
-  if (!name || !email || !phone) return;
-
-  contacts[index] = { name, email, phone };
-
-  alert(`Contact Updated sucessfull`);
-  saveContacts();
-  displayContacts();
-
-  // Reset form
- resetForm();
-
-  const btn = document.getElementById("submit-btn");
-  btn.innerText = "Add Contact";
-  btn.onclick = addContact;
-
-}
-
-function resetForm() {
-  document.getElementById("contact-name").value = "";
-  document.getElementById("contact-email").value = "";
-  document.getElementById("contact-phone").value = "";
-}
+    function updateTask(index) {
+        const input = document.getElementById("input-task");
+        const newText = input.value.trim();
 
 
-function confirmDelete(index) {
-  const result = confirm(`Are you sure you want to delete "${contacts[index].name}"?`);
-  if (result) {
-    deleteContact(index);
-  }
-}
+        if(newText === "") return;
+        tasks[editingIndex].text = newText;
+        editingIndex = null;
+        input.value = "";
 
-function confirmEdit(index) {
-  const result = confirm(`Do you want to edit contact: "${contacts[index].name}"?`);
-  if (result) {
-    editContact(index);
-  }
-}
+        const btn = document.getElementById("add-task");
+        btn.innerText = "add task";
+        btn.onclick = addTask;
+
+        alert("Contect updated sucessfully.");
+        saveTasks();
+        displayTasks();
 
 
+    }
+
+    function resetForm(){
+        document.getElementById("input-task").value = "";
+    }
 
 
 

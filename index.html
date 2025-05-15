@@ -3,133 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>frist web page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Todo app</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-    <h1>hi i am Amit</h1>
-</header>
-<main>
+        <button id="toggle-mode"></button>
+    </header>
     <section>
         <div class="container">
-        <p>become a full stack web Developer</p>
-    <img src="img/m1.png" alt="image">
-    <p>Now i start a new jounery for web Developer.
-    it has 60 day to complete my journey.</p>
-    <a href="https://via.placeholder.com/150"></a>
-    <button onclick="changeHeading()">Click Me</button>
-<h1 id="main-heading">Hello!</h1>
+            <h1>Todo App</h1>
+            <input type="text" id="input-task" placeholder="Enter your Task" />
+            <button id="add-task" onclick="addTask()">Add</button>
+            
+            <ul id="task-list"></ul>
         </div>
-</section>
+    </section>
 
-
-<section>
-    <div class="container">
-   
-   <input type="text" id="name-input" placeholder="Enter your name">
-   <button onclick="showName()">submit</button>
-   <p id="greeting"></p>
-<h2 id="toggle-heading">Click the button to change my style</h2>
-<button onclick="toggleStyle()">Toggle sytle</button>
-
-<p id="remove-me">let delete me now</p>
-<button onclick="removePra()">delete prag</button>
-<!-- <button id="remove-btn">Remove Paragraph</button> -->
-</div>
-</section>
-<section>
-    <div class="container">
-    <form id="contact-form">
-        <input type="text" id="username" placeholder="Enter your name" required />
-        <input type="text" id="email" placeholder="Enter your email" required />
-        <button type="submit">Submit</button>
-        <p id="form-response"></p>
-    </form>
-    <ul id="fruitList">
-
-    </ul>
-    <p id="user-info"></p>
-
-    <ul id="obj-list"></ul>
-    <ul id="product-list"></ul>
-    <button onclick="filterExpensive()">Show Expencive  Item</button>
-</div>
-</section>
-<section>
-    <div class="container">
-        <h3>Temperature Converter</h3>
-<input type="number" id="temp-input" placeholder="Enter temperature" />
-<select id="conversion-type">
-  <option value="toCelsius">To Celsius</option>
-  <option value="toFahrenheit">To Fahrenheit</option>
-</select>
-<button onclick="convertTemp()">Convert</button>
-<p id="converted-output"></p>
-
-    </div>
-</section>
-<section>
-    <div class="container">
-        <h2>Simple Calculator</h2>
-        <input type="number" id="num1" placeholder="Frist number" />
-        <input type="number" id="num2" placeholder="Second number" />
-        <select name="" id="operation">
-            <option value="add">+</option>
-            <option value="subtract">-</option>
-            <option value="multiply">*</option>
-            <option value="divide">÷</option>
-        </select>
-        <button onclick="calculate()" >Calculate</button>
-        <p id="calc-result"></p>
-        <button onclick="clearCalc()">Clear</button>
-    </div>
-</section>
-<section>
-    <div class="container">
-        <h2>User Registration</h2>
-        <form onsubmit="handleSubmit(event)" id="registration-form">
-            <input type="text" id="name" placeholder="Full Name" required />
-            <input type="email" id="email1" placeholder="Enter your Email" required />
-            <input type="password" id="password" placeholder="Password" required />
-            <input type="password" id="con-password" placeholder="Confirm Password" required />
-            <button type="submit">Register</button>
-        </form>
-        <p id="form-message"></p>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <h2>My task</h2>
-        <input type="text" id="task-input" placeholder="Enter a New task" />
-        <button onclick="addTask()">Add Task</button>
-        <button onclick="clearTasks()">Clear All</button>
-
-        <ul id="task-list"></ul>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <h2>Contact Book</h2>
-        <div class="form">
-        <input type="text" id="contact-name" placeholder="Name" />
-        <input type="email" id="contact-email" placeholder="Email" />
-        <input type="tel" id="contact-phone" placeholder="Phone Number" />
-        <button id="submit-btn" onclick="addContact()">Add Contact</button>
-    </div>
-        <input type="text" id="search-input" placeholder="Search contacts..." onkeyup="searchContacts()" />
-
-        <ul id="contact-list"></ul>
-
-    </div>
-</section>
-<footer><p>made by code crew</p></footer>
-</main>
-<script src="script.js"></script>
-<script src="js-practice/es6-practice.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
